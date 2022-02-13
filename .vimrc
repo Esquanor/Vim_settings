@@ -1,4 +1,5 @@
-" BASIC SETTINGS --------------------------------------------------------- {{{
+
+" BASICS SETTINGS --------------------------------------------------------- {{{
 filetype on
 filetype plugin on
 filetype indent on
@@ -6,6 +7,7 @@ syntax on
 set number
 set relativenumber
 set cursorline
+set colorcolumn=80
 set tabstop=4 "set number space about character tab
 set softtabstop=4 "set number space when press <TAB>
 set shiftwidth=4 "set number space shift 
@@ -21,11 +23,12 @@ set showmatch "show matching words during a search
 set hlsearch "use highligthing when doing search
 set wildmenu "enable autocompletion menu after pressing <TAB>
 set wildmode=list:longest "Make wildmenu behave like similar to bash completion
-set wildignore=*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xlsx
+set wildignore=*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xlsx,*.o
 set background=dark
-
+set backspace=indent,eol,start
+set mouse=a
+set hidden "mover over buffer whitout want to save file
 " }}}
-
 
 " PLUGINS ---------------------------------------------------------------- {{{
 " Load the colorscheme
@@ -35,17 +38,26 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'preservim/nerdtree'
 Plug 'morhetz/gruvbox'
+Plug '42Paris/42header'
 Plug 'ycm-core/YouCompleteMe'
 
 call plug#end()
 
 "YouCompleteMe
 let g:ycm_clangd_binary_path='/opt/homebrew/opt/llvm/'
-let g:ycm_global_ycm_extra_conf = "~/.vim/.ycm_extra_conf.py"
+let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
 let g:ycm_key_list_select_completion=[]
 let g:ycm_key_list_previous_completion=[]
-" }}}
+let g:ycm_autoclose_preview_window_after_completion=1
 
+"42 Header
+let g:user42 = 'lfrederi'
+let g:mail42 = 'lfrederi@student.42.fr'
+
+"NERDTree
+let g:NERDTreeMouseMode=2
+
+" }}}
 
 " MAPPINGS --------------------------------------------------------------- {{{
 
@@ -67,8 +79,8 @@ nnoremap S y*
 nnoremap Y y$
 nnoremap <c-C> Vy
 "Shortcut open/close NERDTree
-map <F1> :NERDTreeToggle<CR>
-map <F2> :NERDTree<CR>
+map <F2> :NERDTreeToggle<CR>
+map <F3> :NERDTree<CR>
 " You can split the window in Vim by typing :split or :vsplit.
 nnoremap <c-d> :split<CR>
 nnoremap <c-s> :vsplit<CR>
@@ -81,8 +93,14 @@ nnoremap <c-l> <c-w>l
 " Compile and run C program
 nnoremap <F9> :w<CR> :!clear<CR> :!gcc -Wall -Werror -Wextra *.c;./a.out<CR>
 
-" }}}
+"Buffet pluggin
+noremap <c-i> :bn<CR>
+noremap <c-o> :bp<CR>
+noremap <Leader><Tab> :Bw<CR>
+noremap <Leader><S-Tab> :Bw!<CR>
+noremap <C-t> :tabnew split<CR>
 
+" }}}
 
 " VIMSCRIPT -------------------------------------------------------------- {{{
 
@@ -102,7 +120,6 @@ augroup cursor_off
 augroup END
 
 " }}}
-
 
 " STATUS LINE ------------------------------------------------------------ {{{
 
