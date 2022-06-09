@@ -1,0 +1,55 @@
+snippet ifr "If statement with return instruction" b
+if (${1:test})
+	return ($2);
+$0
+endsnippet
+
+snippet if "If statement with one instruction" b
+if ($1)
+	$0
+endsnippet
+
+snippet ifm "If statement with many instructions" b
+if ($1)
+{
+	$0
+}
+endsnippet
+
+snippet while "Loop while" b
+while ($1)
+{
+	$0
+}
+endsnippet
+
+snippet main "A main function without args" b
+int	main()
+{
+	$0
+	return (0);
+}
+endsnippet
+
+snippet maina "A main function with args" b
+int	main(int argc, char *argv[])
+{
+	if (argc != $1)
+		return (0);
+	$0
+	return (0);
+}
+endsnippet
+
+
+snippet include "include header system" b
+#include <$1.h>
+endsnippet
+
+snippet printf "printf a strins with \n" b
+printf("$1\n");$0
+endsnippet
+
+snippet return "return instruction" b
+return ($0);
+endsnippet

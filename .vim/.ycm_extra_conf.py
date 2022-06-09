@@ -30,7 +30,9 @@ flags = [
     '-isystem', '/usr/local/include',
     '-isystem', '/usr/local/include/eigen3',
     '-I', 'include',
-    '-I.',
+    # TODO WARNING Make this seeting global
+    '-I', '/home/esquanor/Dev/42/minishell/files/headers',
+    '-I', '/home/esquanor/Dev/42/libft/headers/',
 ]
 
 # Set this to the absolute path to the folder (NOT the file!) containing the

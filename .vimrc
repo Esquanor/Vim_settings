@@ -40,11 +40,18 @@ Plug 'preservim/nerdtree'
 Plug 'morhetz/gruvbox'
 Plug '42Paris/42header'
 Plug 'ycm-core/YouCompleteMe'
+Plug 'aperezdc/vim-template'
+"Snippets
+" Track the engine
+Plug 'Sirver/ultisnips'
+" Snippets
+"Plug 'honza/vim-snippets'
 
 call plug#end()
 
 "YouCompleteMe
-let g:ycm_clangd_binary_path='/opt/homebrew/opt/llvm/'
+let g:ycm_clangd_binary_path='/usr/bin/clangd'
+let g:ycm_python_binary_path='/usr/bin/python3'
 let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
 let g:ycm_key_list_select_completion=[]
 let g:ycm_key_list_previous_completion=[]
@@ -56,6 +63,21 @@ let g:mail42 = 'lfrederi@student.42.fr'
 
 "NERDTree
 let g:NERDTreeMouseMode=2
+
+"Vim-template
+let g:templates_no_autocmd=1
+
+"Engine snippets
+let g:UltiSnipsEditSplit="vertical"
+"Trigger configuration
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+let g:UltiSnipsSnippetDirectories=["mySnippets"]
+
+"Termdebug
+"let g:termdebug_popup = 0
+"let	g:termdebug_wide = 163
 
 " }}}
 
@@ -91,15 +113,20 @@ nnoremap <c-h> <c-w>h
 nnoremap <c-l> <c-w>l
 
 " Compile and run C program
-nnoremap <F9> :w<CR> :!clear<CR> :!gcc -Wall -Werror -Wextra *.c;./a.out<CR>
+nnoremap <F9> :w<CR> :!clear<CR> :!gcc -Wall -Werror -Wextra %.c;./a.out<CR>
 
-"Buffet pluggin
+"Buffer pluggin
 noremap <c-i> :bn<CR>
 noremap <c-o> :bp<CR>
 noremap <Leader><Tab> :Bw<CR>
 noremap <Leader><S-Tab> :Bw!<CR>
 noremap <C-t> :tabnew split<CR>
 
+"End of line with ;
+inoremap <c-e> <ESC>A;
+
+"Resize windows
+noremap <c-r> <c-w>=
 " }}}
 
 " VIMSCRIPT -------------------------------------------------------------- {{{
@@ -117,6 +144,11 @@ augroup cursor_off
     autocmd!
     autocmd WinLeave * set nocursorline 
     autocmd WinEnter * set cursorline 
+augroup END
+
+augroup template
+	autocmd BufNewFile *.c,*.h execute ":Template" | execute ":Stdheader"
+	autocmd BufNewFile Makefile execute ":Template"
 augroup END
 
 " }}}
